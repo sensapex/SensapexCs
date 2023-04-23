@@ -4,6 +4,14 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
 
+    <PackageId>SensapexCs</PackageId>
+    <Version>0.9.1</Version>
+    <Authors>Veli-Matti Kananen</Authors>
+    <Company>Cobyte Oy</Company>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+   <ItemGroup>
+      <None Include="README.md" Pack="true" PackagePath="\"/>
+   </ItemGroup>
 </Project>
