@@ -1,0 +1,11 @@
+var searchData=
+[
+  ['getfirmwareversion_0',['GetFirmwareVersion',['../class_sensapex_cs_1_1_ump.html#a838eef6172879307d86cd0f2d3b3f3ad',1,'SensapexCs.Ump.GetFirmwareVersion(List&lt; int &gt; version)'],['../class_sensapex_cs_1_1_ump.html#a7a42641b0489daa94af610ed1d39c2ba',1,'SensapexCs.Ump.GetFirmwareVersion(int dev, List&lt; int &gt; version)']]],
+  ['gethashcode_1',['GetHashCode',['../class_sensapex_cs_1_1_umx.html#ab8989c027d71228a50ebfc3b5dcfa0d7',1,'SensapexCs::Umx']]],
+  ['getlasterror_2',['GetLastError',['../class_sensapex_cs_1_1_umx.html#a1d72cc6868571b1d3c25a7f71ea075a7',1,'SensapexCs::Umx']]],
+  ['getparameter_3',['GetParameter',['../class_sensapex_cs_1_1_umx.html#a7b90453d39b72b6170407e405c245bc3',1,'SensapexCs.Umx.GetParameter(int paramId, out int value)'],['../class_sensapex_cs_1_1_umx.html#aaf02baa2f60738b50f829c836376ff62',1,'SensapexCs.Umx.GetParameter(int dev, int paramId, out int value)']]],
+  ['getpositions_4',['GetPositions',['../class_sensapex_cs_1_1_ump.html#a210113e60f7a9956fb8783764f180255',1,'SensapexCs.Ump.GetPositions(List&lt; float &gt; outPositions, int timeLimit=Constants.LIBUM_DEF_REFRESH_TIME)'],['../class_sensapex_cs_1_1_ump.html#a08502877cdf2663e81824c857667fae8',1,'SensapexCs.Ump.GetPositions(int dev, List&lt; float &gt; outPositions, int timeLimit=Constants.LIBUM_DEF_REFRESH_TIME)']]],
+  ['getpressure_5',['GetPressure',['../class_sensapex_cs_1_1_umv.html#af30d820c9b422212cca1e883f6998034',1,'SensapexCs.Umv.GetPressure(int channel, out float value)'],['../class_sensapex_cs_1_1_umv.html#a2839d6fc6665dbe02bc2824584551322',1,'SensapexCs.Umv.GetPressure(int dev, int channel, out float value)']]],
+  ['getvalve_6',['GetValve',['../class_sensapex_cs_1_1_umv.html#aa3789a1303b154115ba98b82b69b1389',1,'SensapexCs.Umv.GetValve(int channel, out int value)'],['../class_sensapex_cs_1_1_umv.html#a6a29e860ce5a9b3237efa2231783cebd',1,'SensapexCs.Umv.GetValve(int dev, int channel, out int value)']]],
+  ['gotoposition_7',['GotoPosition',['../class_sensapex_cs_1_1_ump.html#aa36c1870be2d302ca194e5e84ab6f96c',1,'SensapexCs.Ump.GotoPosition(UmpSpeedPos speedPos, bool simultaneous=true, int max_acc=0)'],['../class_sensapex_cs_1_1_ump.html#aac7f1d5e64c6b352871c487256dbee66',1,'SensapexCs.Ump.GotoPosition(int dev, UmpSpeedPos speedPos, bool simultaneous=true, int max_acc=0)']]]
+];
