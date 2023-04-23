@@ -28,7 +28,7 @@ jobs:
       id: find-dll
       run: |
         file_path=$(find . -name "SensapexCs.dll" | head -n 1)
-        echo "::set-output name=file-path::$file_path"
+        echo "file-path=$file_path" >> "$GITHUB_OUTPUT"
     - name: Upload the library artifact
       uses: actions/upload-artifact@v3
       with:
