@@ -1,19 +1,4 @@
 ﻿using System.Runtime.InteropServices;
-// See https://aka.ms/new-console-template for more information
-
-namespace SensapexCs
-{
-    static class Constants
-    {
-        //#public const string UMSDK_FILEPATH = "C:\\Users\\veli-\\Documents\\projects\\cobyte\\SDK-proto\\x64\\Debug\\umsdk.dll";
-        public const string UMSDK_FILEPATH = "/Users/vmk/Documents/projects/sensapex/umsdk/build-Release/src/libum.dylib";
-        public const ushort LIBUM_MAX_DEVS = 0xFFFF;              /**< Max count of concurrent devices supported by this SDK version*/
-        public const ushort LIBUM_MAX_LOG_LINE_LENGTH = 256;      /**< maximum log message length */
-        public const int LIBUM_DEF_REFRESH_TIME = 20;
-        public const int LIBUM_ERROR_NOT_OPEN = -2;  // TODO. Use c header values
-    }
-
-}
 
 namespace SensapexCs
 {
