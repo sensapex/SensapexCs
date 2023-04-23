@@ -33,4 +33,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: SensapexCs.dll
-        path: {{ steps.find-dll.outputs.file-path }}
+        path: ${{ steps.find-dll.outputs.file-path }}
