@@ -1,4 +1,4 @@
 # SensapexCs
 C# wrapper for umlib SDK.
 
-[API Documentation](https://github.com/Veli-Matti/SensapexCs/blob/main/Docs/html/index.html)
+[API Documentation](http://dist.sensapex.com/misc/SensapexCs/Docs/html/index.html)
