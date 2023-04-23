@@ -19,8 +19,18 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --configuration Release
+    - name: Find file
+      id: find-dll
+      run: |
+        file_path=$(find . -name "SensapexCs.dll" | head -n 1)
+        echo "::set-output name=file-path::$file_path"
+    - name: Upload the library artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: SensapexCs.dll
+        path: {{ steps.find-dll.outputs.file-path }}
