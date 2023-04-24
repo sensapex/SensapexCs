@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -6,12 +6,28 @@
     <Nullable>enable</Nullable>
 
     <PackageId>SensapexCs</PackageId>
-    <Version>0.9.1</Version>
+    <Version>0.9.2</Version>
     <Authors>Veli-Matti Kananen</Authors>
     <Company>Cobyte Oy</Company>
+    <PackageProjectUrl>https://www.sensapex.com</PackageProjectUrl>
+    <PackageIcon>sensapex.jpg</PackageIcon>
+    <PackageTags>micromanipulator, ump, umc, umv</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>This C# library wraps the C SDK provided by Sensapex's umsdk. 
+It provides general access to the functions present therein, as well as a device-based abstraction.</Description>
+    <RepositoryUrl>https://github.com/sensapex/SensapexCs</RepositoryUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
    <ItemGroup>
-      <None Include="README.md" Pack="true" PackagePath="\"/>
+     <None Include="resources\sensapex.jpg">
+       <Pack>True</Pack>
+       <PackagePath>\</PackagePath>
+     </None>
    </ItemGroup>
 </Project>

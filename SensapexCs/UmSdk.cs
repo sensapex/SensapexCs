@@ -4,7 +4,7 @@ namespace SensapexCs
 {
     static class Constants
     {
-        public const string UMSDK_FILEPATH = "libum.dll";
+        public const string UMSDK_FILEPATH = "libum";
         public const ushort LIBUM_MAX_DEVS = 0xFFFF;              /**< Max count of concurrent devices supported by this SDK version*/
         public const ushort LIBUM_MAX_LOG_LINE_LENGTH = 256;      /**< maximum log message length */
         public const int LIBUM_DEF_REFRESH_TIME = 20;
@@ -25,11 +25,6 @@ namespace SensapexCs
         /// Gets the version of the Sensapex CS library.
         /// </summary>
         public string SensapexCsVersion { get; set; }
-
-        /// <summary>
-        /// Gets the location of the UmSdk library file.
-        /// </summary>
-        public string SdkLocation { get; set; }
     }
 
     /// <summary>
@@ -59,7 +54,6 @@ namespace SensapexCs
             {
                 UmsdkVersion = string.IsNullOrEmpty(resultStr) ? string.Empty : resultStr,
                 SensapexCsVersion = Constants.CS_SDK_VERSION,
-                SdkLocation = Constants.UMSDK_FILEPATH,
             };
 
             return RetVal;
