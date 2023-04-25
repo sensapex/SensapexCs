@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['wpositionum_0',['wPositionUm',['../struct_sensapex_cs_1_1_ump_speed_pos.html#a1b42f8feb664aa8a32b970bc52c4c2bd',1,'SensapexCs::UmpSpeedPos']]],
-  ['wspeedums_1',['wSpeedUms',['../struct_sensapex_cs_1_1_ump_speed_pos.html#ac93fdffaf9bef553cdeb9e176ce472bc',1,'SensapexCs::UmpSpeedPos']]]
+  ['updated_5fus_0',['updated_us',['../struct_sensapex_cs_1_1um__positions.html#a3d3203b25def95f8d30c7e3571eb0a85',1,'SensapexCs::um_positions']]]
 ];

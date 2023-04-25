@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['measurepressure_0',['MeasurePressure',['../class_sensapex_cs_1_1_umv.html#a3ff93a7f973ca925af5815ebd0645be3',1,'SensapexCs.Umv.MeasurePressure(int channel, out float value)'],['../class_sensapex_cs_1_1_umv.html#a417c617f7735c79fe9747f1724ef02d9',1,'SensapexCs.Umv.MeasurePressure(int dev, int channel, out float value)']]]
+  ['ipaddr_0',['IPADDR',['../struct_sensapex_cs_1_1_i_p_a_d_d_r.html',1,'SensapexCs']]],
+  ['isbusy_1',['IsBusy',['../class_sensapex_cs_1_1_umx.html#a980942fec10277ed61903c79d41b66c7',1,'SensapexCs.Umx.IsBusy()'],['../class_sensapex_cs_1_1_umx.html#a8fe121c4618bdf4bb1207fcbb9af7d98',1,'SensapexCs.Umx.IsBusy(int dev)']]]
 ];
