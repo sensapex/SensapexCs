@@ -10,4 +10,4 @@ C# wrapper for umlib SDK.
 ## Installation
 * [NuGet, SensapexCS-package](https://www.nuget.org/packages/SensapexCs/)
 * Manual installation: You can find the latest binary from the repo's [Releases-page](https://github.com/sensapex/SensapexCs/releases)
-* **Note!** The package doesb't contain libum-linray. It must be installed separately.
+* **Note!** The package doesn't contain libum-library. __libum__ library must be installed separately eg. by copying the binary a folder where SensapexCs is able to find it.
