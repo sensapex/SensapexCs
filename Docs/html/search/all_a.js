@@ -1,14 +1,16 @@
 var searchData=
 [
-  ['um_5fpositions_0',['um_positions',['../struct_sensapex_cs_1_1um__positions.html',1,'SensapexCs']]],
-  ['um_5fstate_1',['um_state',['../struct_sensapex_cs_1_1um__state.html',1,'SensapexCs']]],
-  ['ump_2',['Ump',['../class_sensapex_cs_1_1_ump.html',1,'SensapexCs.Ump'],['../class_sensapex_cs_1_1_ump.html#a6fe4d4c0c3fb385f74ee19cf12088168',1,'SensapexCs.Ump.Ump()'],['../class_sensapex_cs_1_1_ump.html#ad714f80acea6f45204e8613c4408556c',1,'SensapexCs.Ump.Ump(int devId)']]],
-  ['umpspeedpos_3',['UmpSpeedPos',['../struct_sensapex_cs_1_1_ump_speed_pos.html',1,'SensapexCs.UmpSpeedPos'],['../struct_sensapex_cs_1_1_ump_speed_pos.html#a99805e9ce67721bd48a5400a221240ad',1,'SensapexCs.UmpSpeedPos.UmpSpeedPos()']]],
-  ['umsdkinfo_4',['UmSdkInfo',['../struct_sensapex_cs_1_1_um_sdk_info.html',1,'SensapexCs']]],
-  ['umsdkversion_5',['UmsdkVersion',['../struct_sensapex_cs_1_1_um_sdk_info.html#abd8be3a14f5881a64f77d711770074fa',1,'SensapexCs::UmSdkInfo']]],
-  ['umstate_6',['UmState',['../class_sensapex_cs_1_1_umx.html#a2f29c19233a8b19cb2ce63441292049f',1,'SensapexCs::Umx']]],
-  ['umv_7',['Umv',['../class_sensapex_cs_1_1_umv.html',1,'SensapexCs.Umv'],['../class_sensapex_cs_1_1_umv.html#acbde45f1f8aeb51dbdc3944bb239fb2b',1,'SensapexCs.Umv.Umv()'],['../class_sensapex_cs_1_1_umv.html#a6cda4c28a010f79b2979107e9f0522ed',1,'SensapexCs.Umv.Umv(int devId)']]],
-  ['umx_8',['Umx',['../class_sensapex_cs_1_1_umx.html',1,'SensapexCs.Umx'],['../class_sensapex_cs_1_1_umx.html#aa98e031e00a8c8d6b560482d95767d0c',1,'SensapexCs.Umx.Umx()'],['../class_sensapex_cs_1_1_umx.html#aae25f9dde37607f5fd491a48917ff725',1,'SensapexCs.Umx.Umx(int devId)']]],
-  ['umxhandle_9',['UmxHandle',['../class_sensapex_cs_1_1_umx.html#a5c5307b5d8eb4013855ca5881fb52402',1,'SensapexCs::Umx']]],
-  ['updated_5fus_10',['updated_us',['../struct_sensapex_cs_1_1um__positions.html#a3d3203b25def95f8d30c7e3571eb0a85',1,'SensapexCs::um_positions']]]
+  ['sensapexcs_0',['SensapexCs',['../namespace_sensapex_cs.html',1,'']]],
+  ['sensapexcsversion_1',['SensapexCsVersion',['../struct_sensapex_cs_1_1_um_sdk_info.html#a4674e1b0403bac9f8e43ca7f0263cb47',1,'SensapexCs::UmSdkInfo']]],
+  ['setparameter_2',['SetParameter',['../class_sensapex_cs_1_1_umx.html#a7c5dc64de75831cacd2f25b334acc32e',1,'SensapexCs.Umx.SetParameter(int paramId, int value)'],['../class_sensapex_cs_1_1_umx.html#ac4d2691f5c711117cf0f20e149a24cf2',1,'SensapexCs.Umx.SetParameter(int dev, int paramId, int value)']]],
+  ['setpressure_3',['SetPressure',['../class_sensapex_cs_1_1_umv.html#a8935f0e87ee582bd626dbb214d19b4d3',1,'SensapexCs.Umv.SetPressure(int channel, float value)'],['../class_sensapex_cs_1_1_umv.html#a8c2f0f617a33a1af54bfcdc65c81ec93',1,'SensapexCs.Umv.SetPressure(int dev, int channel, float value)']]],
+  ['setvalve_4',['SetValve',['../class_sensapex_cs_1_1_umv.html#a48d01101e0097d459155a29e7c02eb20',1,'SensapexCs.Umv.SetValve(int channel, int value)'],['../class_sensapex_cs_1_1_umv.html#a034fe5cf2855ae6d4914f734d87f12a7',1,'SensapexCs.Umv.SetValve(int dev, int channel, int value)']]],
+  ['speed_5fd_5',['speed_d',['../struct_sensapex_cs_1_1um__positions.html#a315eb23f2daaffd4f637d4d8dc3925e6',1,'SensapexCs::um_positions']]],
+  ['speed_5fums_6',['Speed_ums',['../struct_sensapex_cs_1_1_ump_1_1_target_step.html#a5618321eb167ecda6c42319907a83fac',1,'SensapexCs::Ump::TargetStep']]],
+  ['speed_5fx_7',['speed_x',['../struct_sensapex_cs_1_1um__positions.html#a60b6501b624e42699af19cd681b062e9',1,'SensapexCs::um_positions']]],
+  ['speed_5fy_8',['speed_y',['../struct_sensapex_cs_1_1um__positions.html#a63b36cc0e37ac5b6ce5261c8abbbdf70',1,'SensapexCs::um_positions']]],
+  ['speed_5fz_9',['speed_z',['../struct_sensapex_cs_1_1um__positions.html#a55ae9183e923f6ebfc997be48904cbbe',1,'SensapexCs::um_positions']]],
+  ['step_5fum_10',['Step_um',['../struct_sensapex_cs_1_1_ump_1_1_target_step.html#a5c51419cda816c3306584fd4e5ad241d',1,'SensapexCs::Ump::TargetStep']]],
+  ['stepmode_11',['StepMode',['../class_sensapex_cs_1_1_ump.html#ada18a675ba4b9d7f82a765895a72f416',1,'SensapexCs::Ump']]],
+  ['stop_12',['Stop',['../class_sensapex_cs_1_1_umx.html#a4a554cbe003c673a353a50c72bb8d8d0',1,'SensapexCs.Umx.Stop()'],['../class_sensapex_cs_1_1_umx.html#ad2e5fa83de75f1568917d2cf85c73622',1,'SensapexCs.Umx.Stop(int dev)']]]
 ];

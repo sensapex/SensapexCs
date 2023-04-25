@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ping_0',['Ping',['../class_sensapex_cs_1_1_umx.html#ae61d7f97f727804dfc3b1d5e597bf6cd',1,'SensapexCs.Umx.Ping()'],['../class_sensapex_cs_1_1_umx.html#aae267af7c795731c0d1b6b7f99d71d25',1,'SensapexCs.Umx.Ping(int dev)']]]
+  ['open_0',['Open',['../class_sensapex_cs_1_1_umx.html#a3bb47330a7f5c04c73a47661cd87829b',1,'SensapexCs::Umx']]]
 ];
