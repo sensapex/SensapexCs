@@ -3,19 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensapexCs", "SensapexCs\SensapexCs.csproj", "{D3E2AD77-9A84-49B1-A8CD-3F602C624E12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensapexCs", "SensapexCs\SensapexCs.csproj", "{D3E2AD77-9A84-49B1-A8CD-3F602C624E12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowCase", "ShowCase\ShowCase.csproj", "{B675D2BF-7799-4297-9AC3-0E6C069C63F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShowCase", "ShowCase\ShowCase.csproj", "{B675D2BF-7799-4297-9AC3-0E6C069C63F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensapexCsTest", "SensapexCsTest\SensapexCsTest.csproj", "{F2BA2307-78CB-43DD-A11C-991356F186A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensapexCsTest", "SensapexCsTest\SensapexCsTest.csproj", "{F2BA2307-78CB-43DD-A11C-991356F186A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D3E2AD77-9A84-49B1-A8CD-3F602C624E12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +27,11 @@ Global
 		{F2BA2307-78CB-43DD-A11C-991356F186A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2BA2307-78CB-43DD-A11C-991356F186A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2BA2307-78CB-43DD-A11C-991356F186A0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDFFD2B6-7487-4F16-9360-8C685ACB4502}
 	EndGlobalSection
 EndGlobal

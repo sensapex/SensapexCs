@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SensapexCs;
+using static SensapexCs.Ump;
 
 namespace SensapexCsTest
 {
@@ -150,6 +151,55 @@ namespace SensapexCsTest
             // Goto back to home
             Assert.IsTrue(_UmpObj.GotoPosition(_speedPos[1]));
             Thread.Sleep(3000);
+        }
+
+        private void DoRunTakeStepTest(float stepLen_um, int speed_ums, StepMode clsMode)
+        {
+            Assert.IsNotNull(_UmpObj);
+
+            List<TargetStep> targets = new();
+
+            // Take a long step forward
+            TargetStep step = new TargetStep();
+            step.AxisId = TargetAxis.AxisX;
+            step.Step_um = stepLen_um;
+            step.Speed_ums = speed_ums;
+            // ... x
+            targets.Add(step);
+            // ... y
+            step.AxisId = TargetAxis.AxisY;
+            targets.Add(step);
+            // ... z
+            step.AxisId = TargetAxis.AxisZ;
+            targets.Add(step);
+
+            Assert.IsTrue(_UmpObj.TakeStep(targets, clsMode));
+            Thread.Sleep(2500);
+
+            targets.Clear();
+            
+            // Backwards
+            step.Step_um = -step.Step_um;
+            // ... x
+            step.AxisId = TargetAxis.AxisX;
+            targets.Add(step);
+            // ... y
+            step.AxisId = TargetAxis.AxisY;
+            targets.Add(step);
+            // ... z
+            step.AxisId = TargetAxis.AxisZ;
+            targets.Add(step);
+
+            Assert.IsTrue(_UmpObj.TakeStep(targets, clsMode));
+            Thread.Sleep(2500);
+        }
+
+        [TestMethod()]
+        public void TakeStepTest()
+        {
+            DoRunTakeStepTest(200, 200, StepMode.Automatic);
+            DoRunTakeStepTest(50, 50, StepMode.CustomModeLow);
+            DoRunTakeStepTest(25, 25, StepMode.CustomModeHigh);
         }
     }
 }

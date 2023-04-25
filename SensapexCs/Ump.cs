@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
@@ -10,6 +11,7 @@ using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using static SensapexCs.Ump;
 
 
 namespace SensapexCs
@@ -109,6 +111,12 @@ namespace SensapexCs
 
         [DllImport(Constants.UMSDK_FILEPATH, CallingConvention = CallingConvention.Cdecl)]
         protected static extern int um_init_zero(IntPtr hndl, int dev, int axisMask);
+
+        [DllImport(Constants.UMSDK_FILEPATH, CallingConvention = CallingConvention.Cdecl)]
+        protected static extern int um_take_step(IntPtr hndl, int dev,
+            float stepX_um, float stepY_um, float stepZ_um, float stepD_um,
+            int speedX_ums, int speedY_ums, int speedZ_ums, int speedD_ums,
+            int mode, int max_accelaration);
 
         /// <summary>
         /// Calibrates the load for the current device.
@@ -266,6 +274,182 @@ namespace SensapexCs
             }
             return result >= 0;
         }
+        /// <summary>
+        /// The possible step modes that can be used when taking steps.
+        /// </summary>
+        public enum StepMode
+        {
+            /// <summary>
+            /// Automatic mode, where the device selects the best mode based on the step parameters.
+            /// </summary>
+            Automatic = 0,
 
+            /// <summary>
+            /// Custom low mode, where the device uses a low custom mode.
+            /// </summary>
+            CustomModeLow = 1,
+
+            /// <summary>
+            /// Custom high mode, where the device uses a high custom mode.
+            /// </summary>
+            CustomModeHigh = 2,
+        }
+
+        /// <summary>
+        /// The possible target axes that steps can be taken on.
+        /// </summary>
+        public enum TargetAxis
+        {
+            /// <summary>
+            /// The X axis.
+            /// </summary>
+            AxisX = 0,
+
+            /// <summary>
+            /// The Y axis.
+            /// </summary>
+            AxisY = 1,
+
+            /// <summary>
+            /// The Z axis.
+            /// </summary>
+            AxisZ = 2,
+
+            /// <summary>
+            /// The D axis.
+            /// </summary>
+            AxisD = 3,
+        }
+
+        /// <summary>
+        /// Represents a single step to be taken on a target axis.
+        /// </summary>
+        public struct TargetStep
+        {
+            /// <summary>
+            /// The axis to take the step on.
+            /// </summary>
+            public TargetAxis AxisId;
+
+            /// <summary>
+            /// The step size in micrometers.
+            /// </summary>
+            public float Step_um;
+
+            /// <summary>
+            /// The speed of the step in micrometers per second.
+            /// </summary>
+            public float Speed_ums;
+        }
+
+        /// <summary>
+        /// Takes a step on the device using the specified list of target steps.
+        /// </summary>
+        /// <param name="targets">The list of target steps to take.</param>
+        /// <param name="mode">The step mode to use (optional, defaults to <see cref="StepMode.Automatic"/>).</param>
+        /// <param name="maxAcceleration">The maximum acceleration to use (optional, defaults to 0).</param>
+        /// <returns>True if the step was successful, false otherwise.</returns>
+        public bool TakeStep(List<TargetStep> targets, StepMode mode = StepMode.Automatic, int maxAcceleration = 0)
+        {
+            return TakeStep(DevId, targets, mode, maxAcceleration);
+        }
+
+        /// <summary>
+        /// Takes a step on the specified device using the specified list of target steps.
+        /// </summary>
+        /// <param name="dev">The ID of the device to take the step on.</param>
+        /// <param name="targets">The list of target steps to take.</param>
+        /// <param name="mode">The step mode to use (optional, defaults to <see cref="StepMode.Automatic"/>).</param>
+        /// <param name="maxAcceleration">The maximum acceleration to use (optional, defaults to 0).</param>
+        /// <returns>True if the step was successful, false otherwise.</returns>
+        public bool TakeStep(int dev, List<TargetStep> targets, StepMode mode = StepMode.Automatic, int maxAcceleration = 0)
+        {
+            int result = Constants.LIBUM_ERROR_NOT_OPEN;
+            if (validateState())
+            {
+                result = 0;
+
+                float stepX_um = 0;
+                float stepY_um = 0;
+                float stepZ_um = 0;
+                float stepD_um = 0;
+
+                int speedX_ums = 0;
+                int speedY_ums = 0;
+                int speedZ_ums = 0;
+                int speedD_ums = 0;
+
+                foreach(TargetStep target in targets)
+                {
+                    switch(target.AxisId)
+                    {
+                        case TargetAxis.AxisX:
+                            stepX_um = target.Step_um;
+                            speedX_ums = (int)target.Speed_ums;
+                            break;
+                        case TargetAxis.AxisY:
+                            stepY_um = target.Step_um;
+                            speedY_ums = (int)target.Speed_ums;
+                            break;
+                        case TargetAxis.AxisZ:
+                            stepZ_um = target.Step_um;
+                            speedZ_ums = (int)target.Speed_ums;
+                            break;
+                        case TargetAxis.AxisD:
+                            stepD_um = target.Step_um;
+                            speedD_ums = (int)target.Speed_ums;
+                            break;
+                    }
+                }
+                if (result >= 0) {
+                    result = um_take_step(UmxHandle, dev, stepX_um, stepY_um, stepZ_um, stepD_um,
+                                                speedX_ums, speedY_ums, speedZ_ums, speedD_ums,
+                                                (int)mode, maxAcceleration);
+                }
+            }
+            return result >= 0;
+        }
+
+        /// <summary>
+        /// Takes a step on the device with the given step size for each axis, and the specified speed.
+        /// </summary>
+        /// <param name="stepX_um">The step size in micrometers for the X axis. Set to 0 for no step taken.</param>
+        /// <param name="stepY_um">The step size in micrometers for the Y axis. Set to 0 for no step taken.</param>
+        /// <param name="stepZ_um">The step size in micrometers for the Z axis. Set to 0 for no step taken.</param>
+        /// <param name="stepD_um">The step size in micrometers for the D axis. Set to 0 for no step taken.</param>
+        /// <param name="speed_ums">The speed in micrometers per second for all axes.</param>
+        /// <param name="mode">The mode for taking the step. Default is Automatic.</param>
+        /// <param name="maxAcceleration">The maximum acceleration for taking the step. Default is 0.</param>
+        /// <returns>Returns true if the step was successfully taken, otherwise false.</returns>
+        public bool TakeStep(float stepX_um, float stepY_um, float stepZ_um, float stepD_um,
+            int speed_ums, StepMode mode = StepMode.Automatic, int maxAcceleration = 0)
+        {
+            return TakeStep(DevId, stepX_um, stepY_um, stepZ_um, stepD_um, speed_ums, mode, maxAcceleration);
+        }
+
+        /// <summary>
+        /// Takes a step on the specified device with the given step size for each axis, and the specified speed.
+        /// </summary>
+        /// <param name="dev">The device ID to take a step on.</param>
+        /// <param name="stepX_um">The step size in micrometers for the X axis. Set to 0 for no step taken.</param>
+        /// <param name="stepY_um">The step size in micrometers for the Y axis. Set to 0 for no step taken.</param>
+        /// <param name="stepZ_um">The step size in micrometers for the Z axis. Set to 0 for no step taken.</param>
+        /// <param name="stepD_um">The step size in micrometers for the D axis. Set to 0 for no step taken.</param>
+        /// <param name="speed_ums">The speed in micrometers per second for all axes.</param>
+        /// <param name="mode">The mode for taking the step. Default is Automatic.</param>
+        /// <param name="maxAcceleration">The maximum acceleration for taking the step. Default is 0.</param>
+        /// <returns>Returns true if the step was successfully taken, otherwise false.</returns>
+        public bool TakeStep(int dev, float stepX_um, float stepY_um, float stepZ_um, float stepD_um, 
+            int speed_ums, StepMode mode = StepMode.Automatic, int maxAcceleration = 0)
+        {
+            int result = Constants.LIBUM_ERROR_NOT_OPEN;
+            if (validateState())
+            {
+                result = um_take_step(UmxHandle, dev, stepX_um, stepY_um, stepZ_um, stepD_um,
+                            speed_ums, speed_ums, speed_ums, speed_ums,
+                            (int)mode, maxAcceleration);
+            }
+            return result >= 0;
+        }
     }
 }
