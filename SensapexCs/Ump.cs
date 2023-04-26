@@ -230,6 +230,9 @@ namespace SensapexCs
             if (validateState())
             {
                 int mode = simultaneous ? 1 : 0;
+                // Request device to inform when it is done. We use this to sync the operation.
+                CmdOptions(Smcpv1Constants.SMCP1_OPT_REQ_NOTIFY);
+                // Move it!
                 result = um_goto_position_ext(UmxHandle, dev, speedPos.xPositionUm, speedPos.yPositionUm,
                                               speedPos.zPositionUm, speedPos.wPositionUm, speedPos.xSpeedUms,
                                               speedPos.ySpeedUms, speedPos.zSpeedUms, speedPos.wSpeedUms,

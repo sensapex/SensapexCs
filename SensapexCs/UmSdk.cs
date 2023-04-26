@@ -9,7 +9,7 @@ namespace SensapexCs
         public const ushort LIBUM_MAX_LOG_LINE_LENGTH = 256;      /**< maximum log message length */
         public const int LIBUM_DEF_REFRESH_TIME = 20;
         public const int LIBUM_ERROR_NOT_OPEN = -2;
-        public const string CS_SDK_VERSION = "0.9.3";
+        public const string CS_SDK_VERSION = "0.9.4";
     }
     /// <summary>
     /// Represents information about the UmSdk library.
