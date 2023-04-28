@@ -2,7 +2,7 @@
 using SensapexCs;
 using static SensapexCs.Ump;
 
-namespace SensapexCsTest
+namespace SensapexCsTests
 {
 
     [TestClass()]
