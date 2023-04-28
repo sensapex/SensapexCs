@@ -63,5 +63,19 @@ namespace SensapexCs
         /// </summary>
         public const int SMCP1_STATUS_ERROR = 0x00000008;
 
+        /// <summary>
+        /// pPosition drive completed.
+        /// </summary>
+        public const int LIBUM_POS_DRIVE_COMPLETED = 0;
+
+        /// <summary>
+        /// Position drive busy.
+        /// </summary>
+        public const int LIBUM_POS_DRIVE_BUSY = 1;
+
+        /// <summary>
+        /// Position drive failed.
+        /// </summary>
+        public const int LIBUM_POS_DRIVE_FAILED = -1;
     }
 }

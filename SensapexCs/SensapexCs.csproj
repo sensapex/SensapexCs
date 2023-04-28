@@ -16,7 +16,7 @@
 It provides general access to the functions present therein, as well as a device-based abstraction.</Description>
     <RepositoryUrl>https://github.com/sensapex/SensapexCs</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>0.9.4</Version>
+    <Version>0.9.5</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -118,6 +118,9 @@ namespace SensapexCs
             int speedX_ums, int speedY_ums, int speedZ_ums, int speedD_ums,
             int mode, int max_accelaration);
 
+        [DllImport(Constants.UMSDK_FILEPATH, CallingConvention = CallingConvention.Cdecl)]
+        protected static extern int um_get_drive_status(IntPtr hndl, int dev);
+
         /// <summary>
         /// Calibrates the load for the current device.
         /// </summary>
@@ -135,7 +138,7 @@ namespace SensapexCs
         public bool CalibrateLoad(int dev)
         {
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = ump_calibrate_load(UmxHandle, dev);
             }
@@ -164,7 +167,7 @@ namespace SensapexCs
             int[] tmpVersion = new int[versionSegments];
 
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = um_read_version(UmxHandle, dev, tmpVersion, tmpVersion.Length);
                 if (result >= 0)
@@ -197,7 +200,7 @@ namespace SensapexCs
         public bool CalibrateZeroPosition(int dev, int axisMask = 0b1111)
         {
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = um_init_zero(UmxHandle, dev, axisMask);
             }
@@ -227,7 +230,7 @@ namespace SensapexCs
         public bool GotoPosition(int dev, UmpSpeedPos speedPos, bool simultaneous = true, int max_acc = 0)        /// <param name="dev">The 
         {
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 int mode = simultaneous ? 1 : 0;
                 // Request device to inform when it is done. We use this to sync the operation.
@@ -237,6 +240,14 @@ namespace SensapexCs
                                               speedPos.zPositionUm, speedPos.wPositionUm, speedPos.xSpeedUms,
                                               speedPos.ySpeedUms, speedPos.zSpeedUms, speedPos.wSpeedUms,
                                               mode, max_acc);
+                if (result >= 0)
+                {
+                    do
+                    {
+                        Recv(0);
+                        result = GetDriveStatus(dev);
+                    } while (result == Smcpv1Constants.LIBUM_POS_DRIVE_BUSY);
+                }
             }
             return result >= 0;
         }
@@ -262,7 +273,7 @@ namespace SensapexCs
         public bool GetPositions(int dev, List<float> outPositions, int timeLimit = Constants.LIBUM_DEF_REFRESH_TIME)
         {
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = um_get_positions(UmxHandle, dev, timeLimit,
                     out float tmpX, out float tmpY, out float tmpZ, out float tmpD, out _);
@@ -277,6 +288,8 @@ namespace SensapexCs
             }
             return result >= 0;
         }
+
+
         /// <summary>
         /// The possible step modes that can be used when taking steps.
         /// </summary>
@@ -368,7 +381,7 @@ namespace SensapexCs
         public bool TakeStep(int dev, List<TargetStep> targets, StepMode mode = StepMode.Automatic, int maxAcceleration = 0)
         {
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = 0;
 
@@ -446,13 +459,47 @@ namespace SensapexCs
             int speed_ums, StepMode mode = StepMode.Automatic, int maxAcceleration = 0)
         {
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = um_take_step(UmxHandle, dev, stepX_um, stepY_um, stepZ_um, stepD_um,
                             speed_ums, speed_ums, speed_ums, speed_ums,
                             (int)mode, maxAcceleration);
             }
             return result >= 0;
+        }
+
+        /// <summary>
+        /// Obtain memory or position drive status.
+        /// </summary>
+        /// <returns>
+        /// Status of the selected device:
+        /// - Constants.LIBUM_POS_DRIVE_COMPLETED
+        /// - Constants.LIBUM_POS_DRIVE_BUSY
+        /// - Constants.LIBUM_POS_DRIVE_FAILED
+        /// </returns>
+        public int GetDriveStatus()
+        {
+            return GetDriveStatus(DevId);
+        }
+
+        /// <summary>
+        /// Obtain memory or position drive status on the specifid device.
+        /// </summary>
+        /// <param name="dev">Device ID</param>
+        /// <returns>
+        /// Status of the selected device:
+        /// - Constants.LIBUM_POS_DRIVE_COMPLETED
+        /// - Constants.LIBUM_POS_DRIVE_BUSY
+        /// - Constants.LIBUM_POS_DRIVE_FAILED
+        /// </returns>
+        public int GetDriveStatus(int dev)
+        {
+            int result = Constants.LIBUM_ERROR_NOT_OPEN;
+            if (ValidateState())
+            {
+                result = um_get_drive_status(UmxHandle, dev);
+            }
+            return result;
         }
     }
 }
