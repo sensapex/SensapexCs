@@ -1,7 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SensapexCs;
-
-namespace SensapexCsTest;
+namespace SensapexCs.Tests;
 
 [TestClass]
 public class UmSdkTests
@@ -11,6 +8,6 @@ public class UmSdkTests
     {
         UmSdkInfo InfoObj = UmSdk.LibUmInfo();
         Assert.AreEqual("v1.400", InfoObj.UmsdkVersion);
-        Assert.AreEqual("0.9.3", InfoObj.SensapexCsVersion);
+        Assert.AreEqual("0.9.5", InfoObj.SensapexCsVersion);
     }
 }

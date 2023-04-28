@@ -1,8 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SensapexCs;
-using static SensapexCs.Ump;
+﻿using static SensapexCs.Ump;
 
-namespace SensapexCsTest
+namespace SensapexCs.Tests
 {
 
     [TestClass()]
@@ -102,11 +100,7 @@ namespace SensapexCsTest
             Assert.IsNotNull(_speedPos);
 
             Assert.IsTrue(_UmpObj.GotoPosition(_speedPos[0]));
-            // Hmm. This is an async operation. We must wait
-            Thread.Sleep(3000);
-
             Assert.IsTrue(_UmpObj.GotoPosition(_speedPos[1], false));
-            Thread.Sleep(6000);
         }
 
         [TestMethod()]
@@ -115,12 +109,11 @@ namespace SensapexCsTest
             Assert.IsNotNull(_UmpObj);
             Assert.IsNotNull(_speedPos);
 
-            Assert.IsTrue(_UmpObj.GotoPosition(_speedPos[0]));
+            Assert.IsTrue(_UmpObj.TakeStep(100000f, 0f, 0f, 0f, 100));
             Thread.Sleep(500);
             Assert.IsTrue(_UmpObj.Stop());
 
             Assert.IsTrue(_UmpObj.GotoPosition(_speedPos[1], false));
-            Thread.Sleep(2000);
         }
 
         [TestMethod()]
@@ -135,7 +128,6 @@ namespace SensapexCsTest
 
             // Goto back to home
             Assert.IsTrue(_UmpObj.GotoPosition(_speedPos[1]));
-            Thread.Sleep(3000);
         }
 
         [TestMethod()]
@@ -150,7 +142,6 @@ namespace SensapexCsTest
 
             // Goto back to home
             Assert.IsTrue(_UmpObj.GotoPosition(_speedPos[1]));
-            Thread.Sleep(3000);
         }
 
         private void DoRunTakeStepTest(float stepLen_um, int speed_ums, StepMode clsMode)
@@ -200,6 +191,14 @@ namespace SensapexCsTest
             DoRunTakeStepTest(200, 200, StepMode.Automatic);
             DoRunTakeStepTest(50, 50, StepMode.CustomModeLow);
             DoRunTakeStepTest(25, 25, StepMode.CustomModeHigh);
+        }
+
+        [TestMethod()]
+        public void GetDriveStatusTest()
+        {
+            Assert.IsNotNull(_UmpObj);
+            int result = _UmpObj.GetDriveStatus();
+            Assert.AreEqual(Smcpv1Constants.LIBUM_POS_DRIVE_COMPLETED, result);
         }
     }
 }

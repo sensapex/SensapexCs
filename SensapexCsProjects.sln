@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensapexCs", "SensapexCs\Se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShowCase", "ShowCase\ShowCase.csproj", "{B675D2BF-7799-4297-9AC3-0E6C069C63F0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensapexCsTest", "SensapexCsTest\SensapexCsTest.csproj", "{F2BA2307-78CB-43DD-A11C-991356F186A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensapexCsTests", "SensapexCsTest\SensapexCsTests.csproj", "{F2BA2307-78CB-43DD-A11C-991356F186A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

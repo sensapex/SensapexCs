@@ -64,7 +64,7 @@ namespace SensapexCs
         public bool SetPressure(int dev, int channel, float value)
         {
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = umc_set_pressure_setting(UmxHandle, dev, channel, value);
             }
@@ -93,7 +93,7 @@ namespace SensapexCs
         {
             float tmpValue = float.PositiveInfinity;
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = umc_get_pressure_setting(UmxHandle, dev, channel, out tmpValue);
             }
@@ -123,7 +123,7 @@ namespace SensapexCs
         {
             float tmpValue = float.PositiveInfinity;
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = umc_measure_pressure(UmxHandle, dev, channel, out tmpValue);
             }
@@ -152,7 +152,7 @@ namespace SensapexCs
         public bool SetValve(int dev, int channel, int value)
         {
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = umc_set_valve(UmxHandle, dev, channel, value);
             }
@@ -181,7 +181,7 @@ namespace SensapexCs
         {
             int tmpValue = int.MaxValue;
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = umc_get_valve(UmxHandle, dev, channel);
                 if (result >= 0)

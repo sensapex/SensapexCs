@@ -36,7 +36,7 @@ namespace SensapexCs
 {
     [StructLayout(LayoutKind.Sequential)]
 
-    public struct um_state
+    public struct umx_state
     {
         public uint last_received_time;
         public IntPtr socket;
@@ -116,7 +116,11 @@ namespace SensapexCs
         /// <summary>
         /// Gets or sets the current state of the Umx instance.
         /// </summary>
-        protected um_state UmState { set; get; }
+        public umx_state UmxState {
+            get {
+                return Marshal.PtrToStructure<umx_state>(UmxHandle);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the handle for the Umx instance.
@@ -153,12 +157,18 @@ namespace SensapexCs
         [DllImport(Constants.UMSDK_FILEPATH, CallingConvention = CallingConvention.Cdecl)]
         protected static extern IntPtr um_open(string udp_target_address, uint timeout, int group);
 
+        [DllImport(Constants.UMSDK_FILEPATH, CallingConvention = CallingConvention.Cdecl)]
+        protected static extern int um_cmd_options(IntPtr hndl,  int optionbits);
+
+        [DllImport(Constants.UMSDK_FILEPATH, CallingConvention = CallingConvention.Cdecl)]
+        protected static extern int um_receive(IntPtr hndl, int timeout);
+
         /// <summary>
         /// Closes the Umx instance.
         /// </summary>
         public void Close()
         {
-            if (validateState())
+            if (ValidateState())
             {
                 um_close(UmxHandle);
                 UmxHandle = IntPtr.Zero;
@@ -177,12 +187,7 @@ namespace SensapexCs
         public bool Open(string udp_target_address, uint timeout, int group)
         {
             UmxHandle = um_open(udp_target_address, timeout, group);
-            bool success = UmxHandle != IntPtr.Zero;
-            if (success)
-            {
-                UmState = Marshal.PtrToStructure<um_state>(UmxHandle);
-            }
-            return success;
+            return UmxHandle != IntPtr.Zero;
         }
 
         /// <summary>
@@ -194,7 +199,7 @@ namespace SensapexCs
         public List<int> QueryDevices(uint maxCount)
         {
             List<int> deviceList = new List<int>();
-            if (validateState())
+            if (ValidateState())
             {
                 IntPtr dstPtr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(uint)) * (int)maxCount);
                 int devCnt = um_get_device_list(UmxHandle, dstPtr, maxCount);
@@ -219,7 +224,7 @@ namespace SensapexCs
         public int GetLastError()
         {
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = um_last_error(UmxHandle);
             }
@@ -248,7 +253,7 @@ namespace SensapexCs
         {
             int v = int.MaxValue;
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = um_get_param(UmxHandle, dev, paramId, out v);
             }
@@ -273,7 +278,7 @@ namespace SensapexCs
         public bool IsBusy(int dev)
         {
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = um_is_busy(UmxHandle, dev);
             }
@@ -297,7 +302,7 @@ namespace SensapexCs
         public bool Ping(int dev)
         {
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = um_ping(UmxHandle, dev);
             }
@@ -325,7 +330,7 @@ namespace SensapexCs
         public bool SetParameter(int dev, int paramId, int value)
         {
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = um_set_param(UmxHandle, dev, paramId, value);
             }
@@ -349,11 +354,65 @@ namespace SensapexCs
         public bool Stop(int dev)
         {
             int result = Constants.LIBUM_ERROR_NOT_OPEN;
-            if (validateState())
+            if (ValidateState())
             {
                 result = um_stop(UmxHandle, dev);
             }
             return result >= 0;
+        }
+
+        /// <summary>
+        /// Set options for the next command to be sent to a manipulator.
+        /// This is a one-time setting and will be reset after sending the next command.
+        /// Can be used to set the trigger for next command (e.g. goto position)
+        /// </summary>
+        /// <param name="options">
+        /// Options bit to set. Use the following flag values:
+        /// <list type="table">
+        ///     <item>
+        ///         <term>SMCP1_OPT_WAIT_TRIGGER_1</term>
+        ///         <description>Set command to be run when triggered by physical trigger line2</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>SMCP1_OPT_PRIORITY</term>
+        ///         <description>Prioritizes command to run first, 0 = normal command</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>SMCP1_OPT_REQ_BCAST</term>
+        ///         <description>Send ACK, RESP or NOTIFY to the bcast address (combine with REQs below), 0 = unicast to the sender</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>SMCP1_OPT_REQ_NOTIFY</term>
+        ///         <description>Request notification (e.g. on completed memory drive), 0 = do not notify</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>SMCP1_OPT_REQ_RESP</term>
+        ///         <description>Request RESP, 0 = no RESP requested</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>SMCP1_OPT_REQ_ACK</term>
+        ///         <description>Request ACK, 0 = no ACK requested</description>
+        ///     </item>
+        /// </list>
+        /// REQ_NOTIFY, REQ_RESP and REQ_ACK are applied automatically for various commands.
+        /// This option is applied only to the next command.
+        /// Non-zero options are cumulated (bitwise OR'ed).
+        /// Call with value zero to reset all options.
+        /// </param>
+        /// <returns>Returns set optionbits if operation was successful, #um_error otherwise</returns>
+        public int CmdOptions(int options)
+        {
+            return um_cmd_options(UmxHandle, options);
+        }
+
+        /// <summary>
+        /// Process incoming messages (may update status or location cache)
+        /// </summary>
+        /// <param name="timeout_ms">Time limit to wait for incoming messages, in milliseconds</param>
+        /// <returns>The number of messages received</returns>
+        public int Recv(int timeout_ms)
+        {
+            return um_receive(UmxHandle, timeout_ms);
         }
 
         /// <summary>
@@ -364,7 +423,7 @@ namespace SensapexCs
         public override bool Equals(object? obj)
         {
             return obj is Ump umx &&
-                   EqualityComparer<um_state>.Default.Equals(UmState, umx.UmState);
+                   EqualityComparer<umx_state>.Default.Equals(UmxState, umx.UmxState);
         }
 
         /// <summary>
@@ -373,14 +432,14 @@ namespace SensapexCs
         /// <returns>A hash code for the current instance of Umx.</returns>
         public override int GetHashCode()
         {
-            return HashCode.Combine(UmState);
+            return HashCode.Combine(UmxState);
         }
 
         /// <summary>
         /// Validates the state of the Umx instance.
         /// </summary>
         /// <returns>true if the state of the Umx instance is valid, otherwise false.</returns>
-        protected bool validateState()
+        protected bool ValidateState()
         {
             return UmxHandle != IntPtr.Zero;
         }

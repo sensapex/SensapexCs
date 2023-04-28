@@ -1,7 +1,5 @@
-﻿using SensapexCs;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace SensapexCsTest
+﻿
+namespace SensapexCs.Tests
 {
     [TestClass()]
     public class UmxTests
@@ -79,6 +77,21 @@ namespace SensapexCsTest
             Assert.IsFalse(_UmxObj.Ping(99));
             int result = _UmxObj.GetLastError();
             Assert.AreEqual(-3, result);
+        }
+
+        [TestMethod()]
+        public void CmdOptionsTest()
+        {
+            Assert.IsNotNull(_UmxObj);
+            // Initial
+            int result = _UmxObj.CmdOptions(Smcpv1Constants.SMCP1_OPT_REQ_NOTIFY);
+            Assert.AreEqual(result, Smcpv1Constants.SMCP1_OPT_REQ_NOTIFY);
+            // Append
+            result = _UmxObj.CmdOptions(Smcpv1Constants.SMCP1_OPT_REQ_RESP);
+            Assert.AreEqual(Smcpv1Constants.SMCP1_OPT_REQ_NOTIFY | Smcpv1Constants.SMCP1_OPT_REQ_RESP, result);
+            // Clear
+            result = _UmxObj.CmdOptions(0);
+            Assert.AreEqual(0, result);
         }
     }
 }
