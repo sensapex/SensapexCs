@@ -1,8 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SensapexCs;
-using static SensapexCs.Ump;
+﻿using static SensapexCs.Ump;
 
-namespace SensapexCsTests
+namespace SensapexCs.Tests
 {
 
     [TestClass()]
@@ -193,6 +191,14 @@ namespace SensapexCsTests
             DoRunTakeStepTest(200, 200, StepMode.Automatic);
             DoRunTakeStepTest(50, 50, StepMode.CustomModeLow);
             DoRunTakeStepTest(25, 25, StepMode.CustomModeHigh);
+        }
+
+        [TestMethod()]
+        public void GetDriveStatusTest()
+        {
+            Assert.IsNotNull(_UmpObj);
+            int result = _UmpObj.GetDriveStatus();
+            Assert.AreEqual(Smcpv1Constants.LIBUM_POS_DRIVE_COMPLETED, result);
         }
     }
 }

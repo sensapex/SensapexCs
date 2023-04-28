@@ -1,7 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SensapexCs;
-
-namespace SensapexCsTests
+﻿
+namespace SensapexCs.Tests
 {
     [TestClass()]
     public class UmvTests
