@@ -22,6 +22,9 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: Read the version
+      run: |
+        echo "CS_SDK_VERSION=$(grep -oE 'public const string CS_SDK_VERSION = "[^"]*";' ${GITHUB_WORKSPACE}/SensapexCs/UmSdk.cs | sed 's/public const string CS_SDK_VERSION = \"\([^\"]*\)\";/\1/')" >> $GITHUB_ENV
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Find file
@@ -32,5 +35,5 @@ jobs:
     - name: Upload the library artifact
       uses: actions/upload-artifact@v3
       with:
-        name: SensapexCs.dll
+        name: SensapexCs-${CS_SDK_VERSION}
         path: ${{ steps.find-dll.outputs.file-path }}
