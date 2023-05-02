@@ -35,5 +35,5 @@ jobs:
     - name: Upload the library artifact
       uses: actions/upload-artifact@v3
       with:
-        name: SensapexCs-${CS_SDK_VERSION}
+        name: SensapexCs-${{ env.CS_SDK_VERSION }}
         path: ${{ steps.find-dll.outputs.file-path }}
